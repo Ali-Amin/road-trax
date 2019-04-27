@@ -142,7 +142,7 @@ class _MapsScreenState extends State<MapsScreen> {
     final CameraPosition _currentCameraPostion = CameraPosition(
       target:
           LatLng(_currentLocation["latitude"], _currentLocation["longitude"]),
-      zoom: 16,
+      zoom: 17.5,
     );
     return _currentCameraPostion;
   }

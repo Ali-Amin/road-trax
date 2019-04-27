@@ -38,7 +38,6 @@ class MapsScreenBloc {
         }
       });
     });
-    print(_finalSongs);
     _songs$.add(_finalSongs);
   }
 

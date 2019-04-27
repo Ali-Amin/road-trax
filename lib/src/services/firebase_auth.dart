@@ -23,4 +23,17 @@ class AuthenticationService {
       timeout: Duration(seconds: 30),
     );
   }
+
+  verifySmsCode({
+    @required FirebaseAuth firebaseAuthInstance,
+    @required String smsCode,
+    @required String verificationId,
+  }) {
+    try {
+      firebaseAuthInstance.signInWithPhoneNumber(
+          smsCode: smsCode, verificationId: verificationId);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

@@ -64,6 +64,43 @@ class Bloc {
   Function(String) get changeSmsCode => _smsCode$.sink.add;
   Function(String) get changeUserName => _userName$.sink.add;
 
+  void sendSmsCode() async {
+    _authState$.sink.add(AuthState.PhoneLoginLoading);
+    String phoneNumber = _phoneNumber$.value;
+    authService.signInWithPhonenumber(
+      firebaseAuthInstance: _firebaseAuth,
+      phoneNumber: phoneNumber,
+      onAutoRetrievalTimeout: (String verificationid) {
+        _verificationid = verificationid;
+      },
+      onCodeSent: (String verificationId, [int forceResendingToken]) {
+        _verificationid = verificationId;
+        _authState$.sink.add(AuthState.SmsSent);
+      },
+      onVerificationFailed: (AuthException exception) {
+        _authError$.sink.add(exception);
+        _authState$.sink.add(AuthState.PhoneLoginError);
+      },
+      onVerifictionCompleted: (FirebaseUser firebaseUser) async {
+        bool userExists = await _checkIfUserExists();
+        if (userExists) {
+          _authState$.sink.add(AuthState.Authenticated);
+        } else {
+          await _firestore
+              .collection('users')
+              .document(firebaseUser.uid)
+              .setData(
+            {
+              'phoneNumber': _phoneNumber$.value,
+            },
+            merge: true,
+          );
+          _authState$.sink.add(AuthState.UserDoesNotExist);
+        }
+      },
+    );
+  }
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

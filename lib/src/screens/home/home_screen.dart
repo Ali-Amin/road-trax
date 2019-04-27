@@ -29,7 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color(0xFF1C222E),
-        title: Text("HomePage"),
+        title: StreamBuilder<String>(
+          stream: _homeScreenBloc.titles$,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+            final String _title = snapshot.data;
+            return Text(_title);
+          },
+        ),
         centerTitle: true,
       ),
       bottomNavigationBar: FancyBottomNavigation(
@@ -44,7 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
           TabData(iconData: Icons.map, title: "Search"),
           TabData(iconData: Icons.music_note, title: "Basket")
         ],
-        onTabChangedListener: (index) {},
+        onTabChangedListener: (int index) {
+          _homeScreenBloc.sendIndex(index);
+        },
       ),
     );
   }

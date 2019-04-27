@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
 import 'package:roadtrax/src/models/models.dart';
-import 'package:roadtrax/src/screens/home/home.dart';
 
 class SmsVerificationScreen extends StatefulWidget {
   final ScrollController cont1;

@@ -32,34 +32,15 @@ class RoadTrax extends StatelessWidget {
             );
             break;
           case AuthState.Initial:
-            return PhoneLoginScreen();
+            return LoginScreens();
             break;
-          case AuthState.PhoneLoginError:
-            return PhoneLoginScreen();
-            break;
-          case AuthState.SmsSent:
-            return SmsVerificationScreen();
-            break;
-          case AuthState.SmsVerificationError:
-            return SmsVerificationScreen();
-            break;
-          case AuthState.SmsVerified:
-            return PhoneLoginScreen();
-            break;
-          case AuthState.UserDoesNotExist:
-            return SignUpScreen();
-            break;
+
           case AuthState.Authenticated:
             return Scaffold(); // Home Screen
             break;
-          case AuthState.PhoneLoginLoading:
-            return PhoneLoginScreen();
-            break;
-          case AuthState.SmsVerificationLoading:
-            return SmsVerificationScreen();
-            break;
+
           default:
-            return PhoneLoginScreen();
+            return LoginScreens();
             break;
         }
       },

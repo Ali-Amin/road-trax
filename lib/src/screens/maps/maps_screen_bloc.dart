@@ -30,9 +30,15 @@ class MapsScreenBloc {
     Map<String, num> _finalSongs = {};
     songs.forEach((song) {
       final Map<String, num> _temp = Map.from(song);
-      _finalSongs.addAll(_temp);
+      _temp.forEach((key, value) {
+        if (!_finalSongs.containsKey(key)) {
+          _finalSongs[key] = value;
+        } else {
+          _finalSongs[key] += value;
+        }
+      });
     });
-
+    print(_finalSongs);
     _songs$.add(_finalSongs);
   }
 

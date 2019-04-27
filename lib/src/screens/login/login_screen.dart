@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:roadtrax/src/common/common.dart';
 import 'package:roadtrax/src/models/models.dart';
 import 'package:roadtrax/src/screens/login/phone_login_screen.dart';
 import 'package:roadtrax/src/screens/login/sign_up_screen.dart';
 import 'package:roadtrax/src/screens/login/sms_verification_screen.dart';
+import 'package:roadtrax/src/screens/screens.dart';
 
 class LoginScreens extends StatefulWidget {
   @override
@@ -51,7 +51,18 @@ class _LoginScreensState extends State<LoginScreens> {
           );
           break;
         case AuthState.Authenticated:
-          break;
+          cont2.animateTo(
+            0,
+            duration: Duration(milliseconds: 1000),
+            curve: Curves.decelerate,
+          );
+          Future.delayed(Duration(milliseconds: 1000), () {
+            cont1.animateTo(
+              3 * MediaQuery.of(context).size.height,
+              duration: Duration(milliseconds: 1500),
+              curve: Curves.decelerate,
+            );
+          });
           break;
         default:
           break;
@@ -74,12 +85,10 @@ class _LoginScreensState extends State<LoginScreens> {
                 cont1: cont1,
                 cont2: cont2,
               ),
+              HomeScreen()
             ],
           ),
-          SignUpScreen(
-            cont1: cont1,
-            cont2: cont2,
-          )
+          SignUpScreen()
         ],
       ),
     );

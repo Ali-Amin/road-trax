@@ -6,10 +6,12 @@ class UnderLineTextField extends StatelessWidget {
   final IconData icon;
   final Function(String) onChanged;
   final FocusNode focusNode;
+  final TextInputType inputType;
   const UnderLineTextField({
     Key key,
     @required this.hintText,
     @required this.icon,
+    this.inputType = TextInputType.text,
     this.label = "",
     this.onChanged,
     this.focusNode,
@@ -31,12 +33,16 @@ class UnderLineTextField extends StatelessWidget {
               width: 280,
               child: TextField(
                 focusNode: focusNode,
+                keyboardType: inputType,
                 decoration: InputDecoration(
                   labelText: label,
                   labelStyle: TextStyle(color: Colors.white.withAlpha(100)),
                   border: InputBorder.none,
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.white.withAlpha(100)),
+                ),
+                style: TextStyle(
+                  color: Color(0xFFF60068),
                 ),
                 onChanged: onChanged,
               ),

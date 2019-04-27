@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:geocoder/geocoder.dart';
 
 class MapsScreen extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _MapsScreenState extends State<MapsScreen> {
   void initState() {
     _mapController = Completer();
     _location = Location();
+    _getCurrentAddress();
     super.initState();
   }
 
@@ -38,6 +40,16 @@ class _MapsScreenState extends State<MapsScreen> {
       },
       myLocationEnabled: true,
     );
+  }
+
+  Future<void> _getCurrentAddress() async {
+    final _currentLocation = await _location.getLocation();
+    final double _latitude = _currentLocation["latitude"];
+    final double _longitude = _currentLocation["longitude"];
+    final Coordinates _coordinates = Coordinates(_latitude, _longitude);
+    final List<Address> _address =
+        await Geocoder.local.findAddressesFromCoordinates(_coordinates);
+    final String _compoundName = _address.first.subAdminArea;
   }
 
   Future<CameraPosition> _getCurrentCameraLocation() async {

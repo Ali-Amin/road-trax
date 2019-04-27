@@ -8,12 +8,12 @@ class PhoneLoginScreen extends StatefulWidget {
   PhoneLoginScreen({this.cont});
 
   @override
-  PhoneLoginScreenState createState() {
-    return new PhoneLoginScreenState();
+  _PhoneLoginScreenState createState() {
+    return new _PhoneLoginScreenState();
   }
 }
 
-class PhoneLoginScreenState extends State<PhoneLoginScreen> {
+class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
   FocusNode textFieldFocusNode;
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
+import 'package:roadtrax/src/models/models.dart';
 
 class SmsVerificationScreen extends StatefulWidget {
   final ScrollController cont1;
@@ -17,11 +18,9 @@ class SmsVerificationScreen extends StatefulWidget {
 
 class SmsVerificationScreenState extends State<SmsVerificationScreen> {
   FocusNode textFieldFocusNode;
-  double _xTranslation;
   @override
   void initState() {
     textFieldFocusNode = FocusNode();
-    _xTranslation = 0;
     super.initState();
   }
 
@@ -63,16 +62,30 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
           CustomRoundedButton(
             text: "VERIFY CODE",
             onPressed: () {
-              setState(() {
-                _xTranslation = -MediaQuery.of(context).size.width;
+              bloc.authState$.listen((AuthState authState) {
+                switch (authState) {
+                  case AuthState.Authenticated:
+                    textFieldFocusNode.unfocus();
+                    bloc.verifySmsCode();
+                    widget.cont2.animateTo(
+                      MediaQuery.of(context).size.width,
+                      duration: Duration(milliseconds: 1000),
+                      curve: Curves.decelerate,
+                    );
+                    break;
+                  case AuthState.UserDoesNotExist:
+                    textFieldFocusNode.unfocus();
+                    bloc.verifySmsCode();
+                    widget.cont2.animateTo(
+                      MediaQuery.of(context).size.width,
+                      duration: Duration(milliseconds: 1000),
+                      curve: Curves.decelerate,
+                    );
+                    break;
+                  default:
+                    break;
+                }
               });
-              textFieldFocusNode.unfocus();
-              bloc.verifySmsCode();
-              widget.cont2.animateTo(
-                MediaQuery.of(context).size.width,
-                duration: Duration(milliseconds: 1000),
-                curve: Curves.decelerate,
-              );
             },
           )
           // _SignInButton(),

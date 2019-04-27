@@ -9,9 +9,12 @@ class RoadTrax extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       value: Bloc(),
-      child: MaterialApp(routes: {
-        "/": _buildScreen,
-      }),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          "/": _buildScreen,
+        },
+      ),
     );
   }
 

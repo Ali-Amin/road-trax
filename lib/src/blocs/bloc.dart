@@ -60,6 +60,10 @@ class Bloc {
   Observable<Profile> get profile$ => Observable(_profile$.stream);
   Observable<AuthException> get authError$ => Observable(_authError$.stream);
 
+  Function(String) get changePhoneNumber => _phoneNumber$.sink.add;
+  Function(String) get changeSmsCode => _smsCode$.sink.add;
+  Function(String) get changeUserName => _userName$.sink.add;
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

@@ -28,6 +28,27 @@ class Bloc {
     _authError$ = BehaviorSubject<AuthException>();
     _userName$ = BehaviorSubject<String>();
     _profile$ = BehaviorSubject<Profile>();
+
+    _firebaseAuth.onAuthStateChanged.listen((FirebaseUser firebaseUser) {
+      if (firebaseUser != null) {
+        _checkIfUserExists().then((bool userExists) {
+          if (userExists) {
+            _firestore
+                .collection('users')
+                .document(firebaseUser.uid)
+                .snapshots()
+                .listen((DocumentSnapshot doc) {
+              return _profile$.sink.add(Profile.fromDocument(doc));
+            });
+            _authState$.sink.add(AuthState.Authenticated);
+          } else {
+            _firestore.collection('users').document(firebaseUser.uid).setData({
+              'phoneNumber': firebaseUser.phoneNumber,
+            });
+          }
+        });
+      }
+    });
   }
 
   void dispose() {

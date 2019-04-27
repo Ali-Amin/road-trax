@@ -60,13 +60,20 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
               focusNode: textFieldFocusNode,
             ),
           ),
-          CustomRoundedButton(
-            text: "VERIFY CODE",
-            onPressed: () {
-              bloc.verifySmsCode();
-              textFieldFocusNode.unfocus();
-            },
-          )
+          StreamBuilder<AuthState>(
+              stream: bloc.authState$,
+              builder: (context, snapshot) {
+                AuthState state = snapshot.data;
+                bool isLoading = state == AuthState.SmsVerificationLoading;
+                return CustomRoundedButton(
+                  isLoading: isLoading,
+                  text: "VERIFY CODE",
+                  onPressed: () {
+                    bloc.verifySmsCode();
+                    textFieldFocusNode.unfocus();
+                  },
+                );
+              })
           // _SignInButton(),
         ],
       ),

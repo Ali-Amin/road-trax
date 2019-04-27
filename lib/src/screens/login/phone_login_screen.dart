@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
+import 'package:roadtrax/src/models/models.dart';
 
 class PhoneLoginScreen extends StatefulWidget {
   final ScrollController cont;
@@ -49,11 +50,19 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
             focusNode: textFieldFocusNode,
           ),
         ),
-        CustomRoundedButton(
-          text: "SEND SMS CODE",
-          onPressed: () {
-            textFieldFocusNode.unfocus();
-            bloc.sendSmsCode();
+        StreamBuilder<AuthState>(
+          stream: bloc.authState$,
+          builder: (context, snapshot) {
+            AuthState state = snapshot.data;
+            bool isLoading = state == AuthState.PhoneLoginLoading;
+            return CustomRoundedButton(
+              isLoading: isLoading,
+              text: "SEND SMS CODE",
+              onPressed: () {
+                textFieldFocusNode.unfocus();
+                bloc.sendSmsCode();
+              },
+            );
           },
         )
         // _SignInButton(),

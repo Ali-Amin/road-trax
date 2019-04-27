@@ -79,6 +79,7 @@ class _PhoneNumberTextField extends StatelessWidget {
       icon: Icons.phone_android,
       hintText: "eg. 01112345678",
       onChanged: bloc.changePhoneNumber,
+      inputType: TextInputType.number,
     );
   }
 }

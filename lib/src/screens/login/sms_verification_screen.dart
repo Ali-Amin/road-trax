@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
 import 'package:roadtrax/src/models/models.dart';
+import 'package:roadtrax/src/screens/home/home.dart';
 
 class SmsVerificationScreen extends StatefulWidget {
   final ScrollController cont1;
@@ -62,29 +63,16 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
           CustomRoundedButton(
             text: "VERIFY CODE",
             onPressed: () {
+              bloc.verifySmsCode();
+              textFieldFocusNode.unfocus();
               bloc.authState$.listen((AuthState authState) {
-                switch (authState) {
-                  case AuthState.Authenticated:
-                    textFieldFocusNode.unfocus();
-                    bloc.verifySmsCode();
-                    widget.cont2.animateTo(
-                      MediaQuery.of(context).size.width,
-                      duration: Duration(milliseconds: 1000),
-                      curve: Curves.decelerate,
-                    );
-                    break;
-                  case AuthState.UserDoesNotExist:
-                    textFieldFocusNode.unfocus();
-                    bloc.verifySmsCode();
-                    widget.cont2.animateTo(
-                      MediaQuery.of(context).size.width,
-                      duration: Duration(milliseconds: 1000),
-                      curve: Curves.decelerate,
-                    );
-                    break;
-                  default:
-                    break;
-                }
+                if (authState == AuthState.UserDoesNotExist) {
+                  widget.cont2.animateTo(
+                    MediaQuery.of(context).size.width,
+                    duration: Duration(milliseconds: 1000),
+                    curve: Curves.decelerate,
+                  );
+                } else {}
               });
             },
           )
@@ -107,6 +95,7 @@ class _SmsVerificationTextField extends StatelessWidget {
       hintText: "eg. 123456",
       label: "SMS Code",
       onChanged: bloc.changePhoneNumber,
+      inputType: TextInputType.number,
     );
   }
 }

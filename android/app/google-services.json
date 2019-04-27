@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "136018285803-d5vml49t8b8l78hbkia55c4q8bbsnv1h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roadtrax",
+            "certificate_hash": "31a2b09a0f19a108baf7836f5ad01301939a7982"
+          }
+        },
+        {
           "client_id": "136018285803-a76cr9qjno1gsn5cbl5ggirqmmjtg39q.apps.googleusercontent.com",
           "client_type": 3
         }

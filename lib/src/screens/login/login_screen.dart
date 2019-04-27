@@ -34,7 +34,7 @@ class _LoginScreensState extends State<LoginScreens> {
   @override
   Widget build(BuildContext context) {
     Bloc bloc = Provider.of<Bloc>(context);
-    bloc.authState$.listen((AuthState authState) {
+    bloc.authState$.distinct().listen((AuthState authState) {
       switch (authState) {
         case AuthState.SmsSent:
           cont1.animateTo(

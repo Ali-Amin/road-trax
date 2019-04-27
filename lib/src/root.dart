@@ -35,10 +35,6 @@ class RoadTrax extends StatelessWidget {
             return LoginScreens();
             break;
 
-          case AuthState.Authenticated:
-            return Scaffold(); // Home Screen
-            break;
-
           default:
             return LoginScreens();
             break;

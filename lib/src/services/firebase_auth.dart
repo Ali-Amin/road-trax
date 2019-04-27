@@ -10,6 +10,9 @@ class AuthenticationService {
     @required Function(String) onAutoRetrievalTimeout,
     @required Function(String, [int]) onCodeSent,
   }) {
+    if (phoneNumber[0] == "1") {
+      phoneNumber = "0" + phoneNumber;
+    }
     return firebaseAuthInstance.verifyPhoneNumber(
       phoneNumber: '+2$phoneNumber',
       forceResendingToken: 1,

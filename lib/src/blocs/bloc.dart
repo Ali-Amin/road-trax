@@ -26,4 +26,13 @@ class Bloc {
     _userName$ = BehaviorSubject<String>();
     _profile$ = BehaviorSubject<Profile>();
   }
+
+  void dispose() {
+    _phoneNumber$.close();
+    _smsCode$.close();
+    _authState$.close();
+    _authError$.close();
+    _userName$.close();
+    _profile$.close();
+  }
 }

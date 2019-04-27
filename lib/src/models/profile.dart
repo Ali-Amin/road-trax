@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Profile {
   String _uid;
   String _phoneNumber;
@@ -12,4 +14,17 @@ class Profile {
     this._phoneNumber,
     this._userName,
   );
+
+  factory Profile.fromDocument(DocumentSnapshot doc) {
+    if (doc == null) {
+      return null;
+    } else {
+      Map<dynamic, dynamic> profileData = doc.data;
+      return Profile._(
+        doc.documentID,
+        profileData['phoneNumber'],
+        profileData['name'],
+      );
+    }
+  }
 }

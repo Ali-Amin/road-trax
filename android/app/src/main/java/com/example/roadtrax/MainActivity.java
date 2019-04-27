@@ -1,4 +1,4 @@
-package com.example.roadtrax;
+package com.roadtrax;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

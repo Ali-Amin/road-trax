@@ -28,12 +28,13 @@ class AuthenticationService {
     @required FirebaseAuth firebaseAuthInstance,
     @required String smsCode,
     @required String verificationId,
+    @required Function(dynamic error) onError,
   }) {
     try {
       firebaseAuthInstance.signInWithPhoneNumber(
           smsCode: smsCode, verificationId: verificationId);
     } catch (e) {
-      print(e);
+      onError(e);
     }
   }
 }

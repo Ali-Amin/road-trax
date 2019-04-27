@@ -28,6 +28,7 @@ dependencies:
   rxdart: ^0.21.0
   fancy_bottom_navigation: ^0.3.2
   google_maps_flutter: ^0.5.7
+  geocoder: ^0.1.2
 
 dev_dependencies:
   flutter_test:

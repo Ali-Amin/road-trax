@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:roadtrax/src/screens/maps/map_songs_screen.dart';
 import 'package:roadtrax/src/screens/maps/maps_screen_bloc.dart';
 
 class MapsScreen extends StatefulWidget {
@@ -20,7 +21,17 @@ class _MapsScreenState extends State<MapsScreen> {
     _mapController = Completer();
     _location = Location();
     _mapsScreenBloc = MapsScreenBloc();
-    _mapsScreenBloc.songs$.listen((data) => print(data));
+    _mapsScreenBloc.songs$.listen((data) {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MapSongsScreen(
+                songs: data,
+              ),
+        ),
+      );
+    });
     super.initState();
   }
 
@@ -57,10 +68,7 @@ class _MapsScreenState extends State<MapsScreen> {
                 splashColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
-                onPressed: () async {
-                  final String _address = await _getCurrentAddress();
-                  _mapsScreenBloc.updateSongs(_address);
-                },
+                onPressed: () => _onPressed(),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -81,6 +89,40 @@ class _MapsScreenState extends State<MapsScreen> {
           ),
         )
       ],
+    );
+  }
+
+  void _onPressed() async {
+    _showLoadingDialog();
+    final String _address = await _getCurrentAddress();
+    _mapsScreenBloc.updateSongs(_address);
+  }
+
+  void _showLoadingDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 35.0),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
+                ),
+              ),
+              Text(
+                "Loading",
+                style: TextStyle(
+                  color: Color(0xFFF60068),
+                  fontSize: 18.0,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

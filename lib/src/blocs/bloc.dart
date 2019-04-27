@@ -101,6 +101,20 @@ class Bloc {
     );
   }
 
+  void verifySmsCode() {
+    _authState$.sink.add(AuthState.SmsVerificationLoading);
+    String smsCode = _smsCode$.value;
+    try {
+      authService.verifySmsCode(
+        firebaseAuthInstance: _firebaseAuth,
+        smsCode: smsCode,
+        verificationId: _verificationid,
+      );
+    } catch (e) {
+      _authState$.sink.add(AuthState.SmsVerificationError);
+    }
+  }
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

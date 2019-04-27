@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:roadtrax/src/screens/maps/maps_screen_bloc.dart';
 
 class MapsScreen extends StatefulWidget {
   @override
@@ -12,12 +13,14 @@ class MapsScreen extends StatefulWidget {
 class _MapsScreenState extends State<MapsScreen> {
   Completer<GoogleMapController> _mapController;
   Location _location;
+  MapsScreenBloc _mapsScreenBloc;
 
   @override
   void initState() {
     _mapController = Completer();
     _location = Location();
-    _getCurrentAddress();
+    _mapsScreenBloc = MapsScreenBloc();
+    _mapsScreenBloc.songs$.listen((data) => print(data));
     super.initState();
   }
 
@@ -28,21 +31,60 @@ class _MapsScreenState extends State<MapsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(
-        target: LatLng(30.0444, 31.2357),
-        zoom: 14,
-      ),
-      mapType: MapType.normal,
-      onMapCreated: (GoogleMapController controller) {
-        _mapController.complete(controller);
-        _animateToCurrentPosition();
-      },
-      myLocationEnabled: true,
+    return Stack(
+      children: <Widget>[
+        GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: LatLng(30.0444, 31.2357),
+            zoom: 14,
+          ),
+          mapType: MapType.normal,
+          onMapCreated: (GoogleMapController controller) {
+            _mapController.complete(controller);
+            _animateToCurrentPosition();
+          },
+          myLocationEnabled: true,
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Container(
+              height: 40,
+              width: 150,
+              child: FlatButton(
+                color: Color(0xFFF60068),
+                splashColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                onPressed: () async {
+                  final String _address = await _getCurrentAddress();
+                  _mapsScreenBloc.updateSongs(_address);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Icon(
+                      Icons.library_music,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Get Songs",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 
-  Future<void> _getCurrentAddress() async {
+  Future<String> _getCurrentAddress() async {
     final _currentLocation = await _location.getLocation();
     final double _latitude = _currentLocation["latitude"];
     final double _longitude = _currentLocation["longitude"];
@@ -50,6 +92,7 @@ class _MapsScreenState extends State<MapsScreen> {
     final List<Address> _address =
         await Geocoder.local.findAddressesFromCoordinates(_coordinates);
     final String _compoundName = _address.first.subAdminArea;
+    return _compoundName;
   }
 
   Future<CameraPosition> _getCurrentCameraLocation() async {

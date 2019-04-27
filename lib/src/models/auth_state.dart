@@ -1,5 +1,6 @@
 enum AuthState {
   Initial,
+  Loading,
   SmsSent,
   UserDoesNotExist,
   Authenticated,

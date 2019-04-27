@@ -20,7 +20,7 @@ class AuthenticationService {
       verificationCompleted: onVerifictionCompleted,
       codeAutoRetrievalTimeout: onAutoRetrievalTimeout,
       codeSent: onCodeSent,
-      timeout: Duration(seconds: 30),
+      timeout: Duration(seconds: 0),
     );
   }
 

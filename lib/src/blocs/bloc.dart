@@ -1,4 +1,5 @@
 import 'package:roadtrax/src/models/models.dart';
+import 'package:roadtrax/src/services/fireauth.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Bloc {
   FirebaseAuth _firebaseAuth;
   Firestore _firestore;
+  AuthenticationService authService;
   String _verificationid;
 
   BehaviorSubject<String> _phoneNumber$;
@@ -18,6 +20,7 @@ class Bloc {
   Bloc() {
     _firebaseAuth = FirebaseAuth.instance;
     _firestore = Firestore.instance;
+    authService = AuthenticationService();
 
     _phoneNumber$ = BehaviorSubject<String>();
     _smsCode$ = BehaviorSubject<String>();

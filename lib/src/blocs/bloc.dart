@@ -54,6 +54,12 @@ class Bloc {
     });
   }
 
+  Observable<String> get phoneNumber$ => Observable(_phoneNumber$.stream);
+  Observable<String> get smsCode$ => Observable(_smsCode$.stream);
+  Observable<AuthState> get authState$ => Observable(_authState$.stream);
+  Observable<Profile> get profile$ => Observable(_profile$.stream);
+  Observable<AuthException> get authError$ => Observable(_authError$.stream);
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

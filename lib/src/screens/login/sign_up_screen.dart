@@ -54,12 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           text: "SIGN UP",
           onPressed: () {
             textFieldFocusNode.unfocus();
-            bloc.sendSmsCode();
-            widget.cont2.animateTo(
-              MediaQuery.of(context).size.height,
-              duration: Duration(milliseconds: 1000),
-              curve: Curves.decelerate,
-            );
+            bloc.signUp();
           },
         )
         // _SignInButton(),
@@ -79,7 +74,7 @@ class _PhoneNumberTextField extends StatelessWidget {
       focusNode: focusNode,
       icon: Icons.person_add,
       hintText: "eg. John Doe",
-      onChanged: bloc.changePhoneNumber,
+      onChanged: bloc.changeUserName,
     );
   }
 }

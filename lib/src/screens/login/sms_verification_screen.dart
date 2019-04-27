@@ -64,15 +64,6 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
             onPressed: () {
               bloc.verifySmsCode();
               textFieldFocusNode.unfocus();
-              bloc.authState$.listen((AuthState authState) {
-                if (authState == AuthState.UserDoesNotExist) {
-                  widget.cont2.animateTo(
-                    MediaQuery.of(context).size.width,
-                    duration: Duration(milliseconds: 1000),
-                    curve: Curves.decelerate,
-                  );
-                } else {}
-              });
             },
           )
           // _SignInButton(),
@@ -93,7 +84,7 @@ class _SmsVerificationTextField extends StatelessWidget {
       icon: Icons.mail_outline,
       hintText: "eg. 123456",
       label: "SMS Code",
-      onChanged: bloc.changePhoneNumber,
+      onChanged: bloc.changeSmsCode,
       inputType: TextInputType.number,
     );
   }

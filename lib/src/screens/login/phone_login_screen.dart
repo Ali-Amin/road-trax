@@ -54,11 +54,6 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
           onPressed: () {
             textFieldFocusNode.unfocus();
             bloc.sendSmsCode();
-            widget.cont.animateTo(
-              MediaQuery.of(context).size.height,
-              duration: Duration(milliseconds: 1000),
-              curve: Curves.decelerate,
-            );
           },
         )
         // _SignInButton(),

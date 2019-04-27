@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             title: _pageTitles[2],
           ),
         ],
-        onTabChangedListener: (int index) {
+        onTabChangedListener: (int index) async {
+          await Future.delayed(Duration(milliseconds: 150));
           _homeScreenBloc.sendPageIndex(index);
         },
       ),

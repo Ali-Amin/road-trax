@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:roadtrax/src/screens/home/home_screen_bloc.dart';
+import '../maps/maps.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -86,9 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
               break;
             case 1:
-              return Container(
-                color: Colors.red,
-              );
+              return MapsScreen();
               break;
             case 2:
               return Container(

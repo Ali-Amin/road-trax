@@ -9,6 +9,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeScreenBloc _homeScreenBloc;
+  final List<String> _pageTitles = [
+    "Stream Music",
+    "Map View",
+    "Local Music",
+  ];
 
   @override
   void initState() {
@@ -29,14 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color(0xFF1C222E),
-        title: StreamBuilder<String>(
-          stream: _homeScreenBloc.titles$,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+        title: StreamBuilder<int>(
+          stream: _homeScreenBloc.pageIndex$,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             }
-            final String _title = snapshot.data;
-            return Text(_title);
+            final int _pageIndex = snapshot.data;
+            return Text(_pageTitles[_pageIndex]);
           },
         ),
         centerTitle: true,
@@ -49,12 +54,51 @@ class _HomeScreenState extends State<HomeScreen> {
         activeIconColor: Color(0xFFF3006A),
         inactiveIconColor: Colors.white,
         tabs: [
-          TabData(iconData: Icons.settings_system_daydream, title: "Home"),
-          TabData(iconData: Icons.map, title: "Search"),
-          TabData(iconData: Icons.music_note, title: "Basket")
+          TabData(
+            iconData: Icons.settings_system_daydream,
+            title: _pageTitles[0],
+          ),
+          TabData(
+            iconData: Icons.map,
+            title: _pageTitles[1],
+          ),
+          TabData(
+            iconData: Icons.music_note,
+            title: _pageTitles[2],
+          ),
         ],
         onTabChangedListener: (int index) {
-          _homeScreenBloc.sendIndex(index);
+          _homeScreenBloc.sendPageIndex(index);
+        },
+      ),
+      body: StreamBuilder<int>(
+        stream: _homeScreenBloc.pageIndex$,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          final int _pageIndex = snapshot.data;
+          switch (_pageIndex) {
+            case 0:
+              return Container(
+                color: Colors.white,
+              );
+              break;
+            case 1:
+              return Container(
+                color: Colors.red,
+              );
+              break;
+            case 2:
+              return Container(
+                color: Colors.green,
+              );
+              break;
+            default:
+              return CircularProgressIndicator();
+              break;
+          }
         },
       ),
     );

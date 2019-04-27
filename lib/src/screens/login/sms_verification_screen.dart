@@ -37,7 +37,7 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
       onWillPop: () async {
         bloc.resetAuthentication();
         widget.cont1.animateTo(
-          -MediaQuery.of(context).size.height * 0.1,
+          0,
           duration: Duration(milliseconds: 1000),
           curve: Curves.decelerate,
         );

@@ -16,8 +16,13 @@ class MapSongsScreen extends StatelessWidget {
     _songsHeader.forEach(
       (String key) {
         final List<String> _temp = key.split(';');
+
         _songNames.add(_temp[0]);
-        _songGenres.add(_temp[1]);
+        if (_temp.length < 2) {
+          _songGenres.add(" ");
+        } else {
+          _songGenres.add(_temp[1]);
+        }
       },
     );
   }

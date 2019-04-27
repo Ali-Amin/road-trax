@@ -138,6 +138,11 @@ class Bloc {
     _authState$.sink.add(AuthState.Authenticated);
   }
 
+  void resetAuthentication() async {
+    await _firebaseAuth.signOut();
+    _authState$.sink.add(AuthState.Initial);
+  }
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

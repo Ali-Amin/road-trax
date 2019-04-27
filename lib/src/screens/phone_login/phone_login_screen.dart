@@ -8,8 +8,6 @@ class PhoneLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        controller: null,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         padding: EdgeInsets.only(
           left: 20,
           right: 20.0,

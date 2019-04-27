@@ -4,8 +4,10 @@ import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
 
 class SmsVerificationScreen extends StatefulWidget {
-  final ScrollController cont;
-  SmsVerificationScreen({this.cont});
+  final ScrollController cont1;
+  final ScrollController cont2;
+
+  SmsVerificationScreen({this.cont1, this.cont2});
 
   @override
   SmsVerificationScreenState createState() {
@@ -15,9 +17,11 @@ class SmsVerificationScreen extends StatefulWidget {
 
 class SmsVerificationScreenState extends State<SmsVerificationScreen> {
   FocusNode textFieldFocusNode;
+  double _xTranslation;
   @override
   void initState() {
     textFieldFocusNode = FocusNode();
+    _xTranslation = 0;
     super.initState();
   }
 
@@ -32,47 +36,47 @@ class SmsVerificationScreenState extends State<SmsVerificationScreen> {
     Bloc bloc = Provider.of<Bloc>(context);
     return WillPopScope(
       onWillPop: () async {
-        widget.cont.animateTo(
+        widget.cont1.animateTo(
           -MediaQuery.of(context).size.height * 0.1,
           duration: Duration(milliseconds: 1000),
           curve: Curves.decelerate,
         );
       },
-      child: Scaffold(
-        backgroundColor: Color(0xFF121A27),
-        body: ListView(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20.0,
-            top: MediaQuery.of(context).size.height * 0.1,
-          ),
-          children: <Widget>[
-            Icon(
-              Icons.check,
-              size: 200.0,
-              color: Color(0xFFF60068),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 70.0),
-              child: _SmsVerificationTextField(
-                focusNode: textFieldFocusNode,
-              ),
-            ),
-            CustomRoundedButton(
-              text: "VERIFY CODE",
-              onPressed: () {
-                textFieldFocusNode.unfocus();
-                bloc.sendSmsCode();
-                widget.cont.animateTo(
-                  MediaQuery.of(context).size.height,
-                  duration: Duration(milliseconds: 1000),
-                  curve: Curves.decelerate,
-                );
-              },
-            )
-            // _SignInButton(),
-          ],
+      child: ListView(
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20.0,
+          top: MediaQuery.of(context).size.height * 0.1,
         ),
+        children: <Widget>[
+          Icon(
+            Icons.check,
+            size: 200.0,
+            color: Color(0xFFF60068),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 70.0),
+            child: _SmsVerificationTextField(
+              focusNode: textFieldFocusNode,
+            ),
+          ),
+          CustomRoundedButton(
+            text: "VERIFY CODE",
+            onPressed: () {
+              setState(() {
+                _xTranslation = -MediaQuery.of(context).size.width;
+              });
+              textFieldFocusNode.unfocus();
+              bloc.verifySmsCode();
+              widget.cont2.animateTo(
+                MediaQuery.of(context).size.width,
+                duration: Duration(milliseconds: 1000),
+                curve: Curves.decelerate,
+              );
+            },
+          )
+          // _SignInButton(),
+        ],
       ),
     );
   }

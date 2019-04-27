@@ -4,8 +4,9 @@ import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
 
 class SignUpScreen extends StatefulWidget {
-  final ScrollController cont;
-  SignUpScreen({this.cont});
+  final ScrollController cont1;
+  final ScrollController cont2;
+  SignUpScreen({this.cont1, this.cont2});
 
   @override
   _SignUpScreenState createState() {
@@ -31,41 +32,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     Bloc bloc = Provider.of<Bloc>(context);
-    return Scaffold(
-      backgroundColor: Color(0xFF121A27),
-      body: ListView(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20.0,
-          top: MediaQuery.of(context).size.height * 0.1,
-        ),
-        children: <Widget>[
-          Icon(
-            Icons.person_outline,
-            size: 200.0,
-            color: Color(0xFFF60068),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 70.0),
-            child: _PhoneNumberTextField(
-              focusNode: textFieldFocusNode,
-            ),
-          ),
-          CustomRoundedButton(
-            text: "SEND SMS CODE",
-            onPressed: () {
-              textFieldFocusNode.unfocus();
-              bloc.sendSmsCode();
-              widget.cont.animateTo(
-                MediaQuery.of(context).size.height,
-                duration: Duration(milliseconds: 1000),
-                curve: Curves.decelerate,
-              );
-            },
-          )
-          // _SignInButton(),
-        ],
+    return ListView(
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20.0,
+        top: MediaQuery.of(context).size.height * 0.1,
       ),
+      children: <Widget>[
+        Icon(
+          Icons.verified_user,
+          size: 200.0,
+          color: Color(0xFFF60068),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 70.0),
+          child: _PhoneNumberTextField(
+            focusNode: textFieldFocusNode,
+          ),
+        ),
+        CustomRoundedButton(
+          text: "SIGN UP",
+          onPressed: () {
+            textFieldFocusNode.unfocus();
+            bloc.sendSmsCode();
+            widget.cont2.animateTo(
+              MediaQuery.of(context).size.height,
+              duration: Duration(milliseconds: 1000),
+              curve: Curves.decelerate,
+            );
+          },
+        )
+        // _SignInButton(),
+      ],
     );
   }
 }
@@ -77,10 +75,10 @@ class _PhoneNumberTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     Bloc bloc = Provider.of<Bloc>(context);
     return UnderLineTextField(
-      label: "Phone Number",
+      label: "Full Name",
       focusNode: focusNode,
-      icon: Icons.phone_android,
-      hintText: "eg. 01112345678",
+      icon: Icons.person_add,
+      hintText: "eg. John Doe",
       onChanged: bloc.changePhoneNumber,
     );
   }

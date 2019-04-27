@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roadtrax/src/blocs/bloc.dart';
 import 'package:roadtrax/src/common/common.dart';
+import 'package:roadtrax/src/models/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget {
-  final ScrollController cont1;
-  final ScrollController cont2;
-  SignUpScreen({this.cont1, this.cont2});
-
   @override
   _SignUpScreenState createState() {
     return new _SignUpScreenState();

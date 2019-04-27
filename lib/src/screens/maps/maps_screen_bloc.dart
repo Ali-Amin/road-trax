@@ -13,22 +13,17 @@ class MapsScreenBloc {
     _firestoreRoadsCollection = Firestore.instance.collection("roads");
   }
 
-  void updateSongs(String address) {
-    _firestoreRoadsCollection
+  void updateSongs(String address) async {
+    QuerySnapshot _query = await _firestoreRoadsCollection
         .where("name", isEqualTo: address)
-        .snapshots()
-        .forEach((QuerySnapshot query) {
-      final List<Road> _roads = query.documents.map((DocumentSnapshot doc) {
-        doc.data["songs"] = Map.from(doc.data["songs"]);
-        return Road.fromDocument(doc);
-      }).toList();
+        .getDocuments();
 
-      final List<Map<dynamic, dynamic>> _songs = _roads.map((Road road) {
-        return road.songs;
-      }).toList();
-
-      _pushSongsToStream(_songs);
-    });
+    final List<Map<dynamic, dynamic>> _currentSongs =
+        _query.documents.map((DocumentSnapshot doc) {
+      final Road _currentRoad = Road.fromDocument(doc);
+      return _currentRoad.songs;
+    }).toList();
+    _pushSongsToStream(_currentSongs);
   }
 
   void _pushSongsToStream(List<Map<dynamic, dynamic>> songs) {

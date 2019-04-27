@@ -48,9 +48,12 @@ class _SignInButton extends StatelessWidget {
   const _SignInButton({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Bloc bloc = Provider.of<Bloc>(context);
     return CustomRoundedButton(
       text: "Sign In",
-      onPressed: () {},
+      onPressed: () {
+        bloc.sendSmsCode();
+      },
     );
   }
 }

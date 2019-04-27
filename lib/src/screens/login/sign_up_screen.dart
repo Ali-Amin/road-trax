@@ -33,43 +33,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Bloc bloc = Provider.of<Bloc>(context);
     return Scaffold(
       backgroundColor: Color(0xFF121A27),
-      body: AnimatedContainer(
-        duration: Duration(milliseconds: 1000),
-        curve: Curves.decelerate,
-        transform: Matrix4.translationValues(0, 0, 100),
-        child: ListView(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20.0,
-            top: MediaQuery.of(context).size.height * 0.1,
-          ),
-          children: <Widget>[
-            Icon(
-              Icons.person_outline,
-              size: 200.0,
-              color: Color(0xFFF60068),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 70.0),
-              child: _PhoneNumberTextField(
-                focusNode: textFieldFocusNode,
-              ),
-            ),
-            CustomRoundedButton(
-              text: "SEND SMS CODE",
-              onPressed: () {
-                textFieldFocusNode.unfocus();
-                bloc.sendSmsCode();
-                widget.cont.animateTo(
-                  MediaQuery.of(context).size.height,
-                  duration: Duration(milliseconds: 1000),
-                  curve: Curves.decelerate,
-                );
-              },
-            )
-            // _SignInButton(),
-          ],
+      body: ListView(
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20.0,
+          top: MediaQuery.of(context).size.height * 0.1,
         ),
+        children: <Widget>[
+          Icon(
+            Icons.person_outline,
+            size: 200.0,
+            color: Color(0xFFF60068),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 70.0),
+            child: _PhoneNumberTextField(
+              focusNode: textFieldFocusNode,
+            ),
+          ),
+          CustomRoundedButton(
+            text: "SEND SMS CODE",
+            onPressed: () {
+              textFieldFocusNode.unfocus();
+              bloc.sendSmsCode();
+              widget.cont.animateTo(
+                MediaQuery.of(context).size.height,
+                duration: Duration(milliseconds: 1000),
+                curve: Curves.decelerate,
+              );
+            },
+          )
+          // _SignInButton(),
+        ],
       ),
     );
   }

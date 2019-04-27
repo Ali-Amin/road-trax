@@ -143,6 +143,20 @@ class Bloc {
     _authState$.sink.add(AuthState.Initial);
   }
 
+  Future<bool> _checkIfUserExists() async {
+    FirebaseUser firebaseUser = await _firebaseAuth.onAuthStateChanged.first;
+    String userUid = firebaseUser.uid;
+    DocumentSnapshot userDoc =
+        await _firestore.collection('users').document(userUid).get();
+    Map<dynamic, dynamic> userData = userDoc.data;
+
+    if (userDoc.exists && userData['name'] != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

@@ -104,24 +104,28 @@ class _MapsScreenState extends State<MapsScreen> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        return AlertDialog(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 35.0),
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
+        return WillPopScope(
+          onWillPop: () {},
+          child: AlertDialog(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 35.0),
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
+                  ),
                 ),
-              ),
-              Text(
-                "Loading",
-                style: TextStyle(
-                  color: Color(0xFFF60068),
-                  fontSize: 18.0,
+                Text(
+                  "Loading",
+                  style: TextStyle(
+                    color: Color(0xFFF60068),
+                    fontSize: 18.0,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

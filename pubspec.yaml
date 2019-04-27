@@ -27,6 +27,7 @@ dependencies:
   google_maps_flutter: ^0.5.3
   location: ^1.4.0
   rxdart: ^0.21.0
+  fancy_bottom_navigation: ^0.3.2
 
 dev_dependencies:
   flutter_test:

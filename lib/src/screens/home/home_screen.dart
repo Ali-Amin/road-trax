@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Color(0xFF1C222E),
         title: Text("HomePage"),
+        centerTitle: true,
       ),
     );
   }

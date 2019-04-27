@@ -15,5 +15,15 @@ class Bloc {
   BehaviorSubject<String> _userName$;
   BehaviorSubject<Profile> _profile$;
 
-  Bloc() {}
+  Bloc() {
+    _firebaseAuth = FirebaseAuth.instance;
+    _firestore = Firestore.instance;
+
+    _phoneNumber$ = BehaviorSubject<String>();
+    _smsCode$ = BehaviorSubject<String>();
+    _authState$ = BehaviorSubject<AuthState>();
+    _authError$ = BehaviorSubject<AuthException>();
+    _userName$ = BehaviorSubject<String>();
+    _profile$ = BehaviorSubject<Profile>();
+  }
 }

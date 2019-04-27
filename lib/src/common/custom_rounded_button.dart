@@ -14,7 +14,7 @@ class CustomRoundedButton extends StatelessWidget {
       child: FlatButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(200))),
-        child: Text("Sign In"),
+        child: Text(text),
         color: Color(0xFFF60068),
         textColor: Colors.white,
         onPressed: () {

@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "136018285803",
+    "firebase_url": "https://road-trax.firebaseio.com",
+    "project_id": "road-trax",
+    "storage_bucket": "road-trax.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136018285803:android:b3518592dbb253be",
+        "android_client_info": {
+          "package_name": "com.roadtrax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136018285803-tegtauo2advec6pb904gt6r4scq454ij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roadtrax",
+            "certificate_hash": "5850860ee435120da681a7cc0407290486fe00e5"
+          }
+        },
+        {
+          "client_id": "136018285803-d5vml49t8b8l78hbkia55c4q8bbsnv1h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roadtrax",
+            "certificate_hash": "31a2b09a0f19a108baf7836f5ad01301939a7982"
+          }
+        },
+        {
+          "client_id": "136018285803-a76cr9qjno1gsn5cbl5ggirqmmjtg39q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdNFm6opr-ClfAVHyCIGKIYYaGXY1Lw6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136018285803-a76cr9qjno1gsn5cbl5ggirqmmjtg39q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

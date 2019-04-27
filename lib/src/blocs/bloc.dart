@@ -104,15 +104,12 @@ class Bloc {
   void verifySmsCode() {
     _authState$.sink.add(AuthState.SmsVerificationLoading);
     String smsCode = _smsCode$.value;
-    try {
-      authService.verifySmsCode(
-        firebaseAuthInstance: _firebaseAuth,
-        smsCode: smsCode,
-        verificationId: _verificationid,
-      );
-    } catch (e) {
-      _authState$.sink.add(AuthState.SmsVerificationError);
-    }
+    authService.verifySmsCode(
+      firebaseAuthInstance: _firebaseAuth,
+      smsCode: smsCode,
+      verificationId: _verificationid,
+      onError: (e) => _authState$.sink.add(AuthState.SmsVerificationError),
+    );
   }
 
   void signUp() async {

@@ -37,6 +37,7 @@ class _MapsScreenState extends State<MapsScreen> {
 
   @override
   void dispose() {
+    _mapsScreenBloc.dispose();
     super.dispose();
   }
 
@@ -100,6 +101,7 @@ class _MapsScreenState extends State<MapsScreen> {
 
   void _showLoadingDialog() {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(

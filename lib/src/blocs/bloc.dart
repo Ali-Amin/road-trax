@@ -63,7 +63,6 @@ class Bloc {
   Function(String) get changePhoneNumber => _phoneNumber$.sink.add;
   Function(String) get changeSmsCode => _smsCode$.sink.add;
   Function(String) get changeUserName => _userName$.sink.add;
-
   void sendSmsCode() async {
     _authState$.sink.add(AuthState.PhoneLoginLoading);
     String phoneNumber = _phoneNumber$.value;
@@ -113,6 +112,7 @@ class Bloc {
   }
 
   void signUp() async {
+    _authState$.sink.add(AuthState.Authenticated);
     FirebaseUser firebaseUser = await _firebaseAuth.onAuthStateChanged.first;
     String userUid = firebaseUser.uid;
     String phoneNumber = firebaseUser.phoneNumber;

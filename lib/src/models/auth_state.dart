@@ -1,1 +1,5 @@
-enum AuthState { Authenticated }
+enum AuthState {
+  Initial,
+  UserDoesNotExist,
+  Authenticated,
+}

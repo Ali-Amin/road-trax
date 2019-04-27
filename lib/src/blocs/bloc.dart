@@ -115,6 +115,29 @@ class Bloc {
     }
   }
 
+  void signUp() async {
+    FirebaseUser firebaseUser = await _firebaseAuth.onAuthStateChanged.first;
+    String userUid = firebaseUser.uid;
+    String phoneNumber = firebaseUser.phoneNumber;
+    String userName = _userName$.value;
+    if (phoneNumber[0] == "1") {
+      phoneNumber = "0" + phoneNumber;
+    }
+    await _firestore
+        .collection('users')
+        .document(userUid)
+        .setData({'name': userName}, merge: true);
+
+    _firestore
+        .collection('users')
+        .document(userUid)
+        .snapshots()
+        .listen((DocumentSnapshot doc) {
+      return _profile$.sink.add(Profile.fromDocument(doc));
+    });
+    _authState$.sink.add(AuthState.Authenticated);
+  }
+
   void dispose() {
     _phoneNumber$.close();
     _smsCode$.close();

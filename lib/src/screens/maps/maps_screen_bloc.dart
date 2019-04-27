@@ -14,6 +14,7 @@ class MapsScreenBloc {
   }
 
   void updateSongs(String address) async {
+    if (address == null) address = "";
     QuerySnapshot _query = await _firestoreRoadsCollection
         .where("name", isEqualTo: address)
         .getDocuments();

@@ -45,8 +45,11 @@ class Bloc {
             _firestore.collection('users').document(firebaseUser.uid).setData({
               'phoneNumber': firebaseUser.phoneNumber,
             });
+            _authState$.sink.add(AuthState.UserDoesNotExist);
           }
         });
+      } else {
+        _authState$.sink.add(AuthState.Initial);
       }
     });
   }

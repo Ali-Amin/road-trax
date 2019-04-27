@@ -20,7 +20,7 @@ class AuthenticationService {
       verificationCompleted: onVerifictionCompleted,
       codeAutoRetrievalTimeout: onAutoRetrievalTimeout,
       codeSent: onCodeSent,
-      timeout: Duration(seconds: 30),
+      timeout: Duration(seconds: 0),
     );
   }
 
@@ -28,12 +28,13 @@ class AuthenticationService {
     @required FirebaseAuth firebaseAuthInstance,
     @required String smsCode,
     @required String verificationId,
+    @required Function(dynamic error) onError,
   }) {
     try {
       firebaseAuthInstance.signInWithPhoneNumber(
           smsCode: smsCode, verificationId: verificationId);
     } catch (e) {
-      print(e);
+      onError(e);
     }
   }
 }

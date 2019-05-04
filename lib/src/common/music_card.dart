@@ -87,12 +87,14 @@ class _MusicCardState extends State<MusicCard> {
                           style: TextStyle(
                             color: Colors.white,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           widget._genre,
                           style: TextStyle(
                             color: Colors.grey[400],
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),

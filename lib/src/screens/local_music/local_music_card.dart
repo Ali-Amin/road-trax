@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:roadtrax/src/common/music_card_bloc.dart';
 
-class MusicCard extends StatefulWidget {
+class LocalMusicCard extends StatefulWidget {
   int _index;
   String _songName;
   String _genre;
-  num _count;
-  MusicCard(
-      {@required String songName,
-      @required String genre,
-      @required int index,
-      @required num count})
-      : _songName = songName,
+  String _duartion;
+  String _albumArtLocation;
+  LocalMusicCard({
+    @required String songName,
+    @required String genre,
+    @required int index,
+    @required String duration,
+    @required String albumArtLocation,
+  })  : _songName = songName,
         _genre = genre,
         _index = index,
-        _count = count;
+        _duartion = duration,
+        _albumArtLocation = albumArtLocation;
 
   @override
-  _MusicCardState createState() => _MusicCardState();
+  _LocalMusicCardState createState() => _LocalMusicCardState();
 }
 
-class _MusicCardState extends State<MusicCard> {
-  MusicCardBloc _musicCardBloc;
-
+class _LocalMusicCardState extends State<LocalMusicCard> {
   @override
   void initState() {
-    _musicCardBloc = MusicCardBloc();
     super.initState();
   }
 
   @override
   void dispose() {
-    _musicCardBloc.dispose();
     super.dispose();
   }
 
@@ -53,7 +51,7 @@ class _MusicCardState extends State<MusicCard> {
                     widget._index.toString(),
                     style: TextStyle(
                       color: Color(0xFFFE0069),
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -67,13 +65,20 @@ class _MusicCardState extends State<MusicCard> {
                     color: Colors.grey[600].withOpacity(0.7),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.music_note,
-                      color: Colors.white.withOpacity(0.8),
-                      size: 45.0,
-                    ),
-                  ),
+                  child: widget._albumArtLocation != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image.asset(
+                            widget._albumArtLocation,
+                            fit: BoxFit.cover,
+                          ))
+                      : Center(
+                          child: Icon(
+                            Icons.music_note,
+                            color: Colors.white.withOpacity(0.8),
+                            size: 45.0,
+                          ),
+                        ),
                 ),
               ),
               Flexible(
@@ -113,47 +118,20 @@ class _MusicCardState extends State<MusicCard> {
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        StreamBuilder<bool>(
-                          stream: _musicCardBloc.favourite$,
-                          initialData: false,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<bool> snapshot) {
-                            final _isFavourite = snapshot.data;
-                            return IconButton(
-                              onPressed: () =>
-                                  _musicCardBloc.triggerFavourite(),
-                              icon: Icon(
-                                _isFavourite ? Icons.star : Icons.star_border,
-                                size: 22.0,
-                                color: Color(0xFFFE0069),
-                              ),
-                            );
-                          },
+                    child: Center(
+                      child: Text(
+                        widget._duartion,
+                        style: TextStyle(
+                          color: Color(0xFFFE0069),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
                         ),
-                        Text(
-                          widget._count.toString(),
-                          style: TextStyle(
-                            color: Color(0xFFFE0069),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Divider(
-            height: 20.0,
-            color: Colors.grey[400].withOpacity(0.8),
           ),
         ),
       ],

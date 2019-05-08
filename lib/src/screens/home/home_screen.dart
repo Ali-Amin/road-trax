@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         onTabChangedListener: (int index) async {
-          await Future.delayed(Duration(milliseconds: 150));
+          await Future.delayed(Duration(milliseconds: 260));
           _homeScreenBloc.sendPageIndex(index);
         },
       ),

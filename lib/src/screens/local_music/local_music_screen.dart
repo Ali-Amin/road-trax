@@ -214,7 +214,16 @@ class _LocalMusicScreenState extends State<LocalMusicScreen> {
     final Coordinates _coordinates = Coordinates(_latitude, _longitude);
     final List<Address> _address =
         await Geocoder.local.findAddressesFromCoordinates(_coordinates);
-    final String _compoundName = _address.first.subAdminArea;
+    String _compoundName;
+    for (var item in _address) {
+      if (item.locality != null) {
+        _compoundName = item.locality;
+        break;
+      }
+    }
+    if (_compoundName == null) {
+      _compoundName = "invalid";
+    }
     return _compoundName;
   }
 }

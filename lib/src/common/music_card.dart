@@ -5,11 +5,16 @@ class MusicCard extends StatefulWidget {
   int _index;
   String _songName;
   String _genre;
+  num _count;
   MusicCard(
-      {@required String songName, @required String genre, @required int index})
+      {@required String songName,
+      @required String genre,
+      @required int index,
+      @required num count})
       : _songName = songName,
         _genre = genre,
-        _index = index;
+        _index = index,
+        _count = count;
 
   @override
   _MusicCardState createState() => _MusicCardState();
@@ -108,21 +113,36 @@ class _MusicCardState extends State<MusicCard> {
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: StreamBuilder<bool>(
-                        stream: _musicCardBloc.favourite$,
-                        initialData: false,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<bool> snapshot) {
-                          final _isFavourite = snapshot.data;
-                          return IconButton(
-                            onPressed: () => _musicCardBloc.triggerFavourite(),
-                            icon: Icon(
-                              _isFavourite ? Icons.star : Icons.star_border,
-                              size: 25.0,
-                              color: Color(0xFFFE0069),
-                            ),
-                          );
-                        }),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        StreamBuilder<bool>(
+                          stream: _musicCardBloc.favourite$,
+                          initialData: false,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<bool> snapshot) {
+                            final _isFavourite = snapshot.data;
+                            return IconButton(
+                              onPressed: () =>
+                                  _musicCardBloc.triggerFavourite(),
+                              icon: Icon(
+                                _isFavourite ? Icons.star : Icons.star_border,
+                                size: 22.0,
+                                color: Color(0xFFFE0069),
+                              ),
+                            );
+                          },
+                        ),
+                        Text(
+                          widget._count.toString(),
+                          style: TextStyle(
+                            color: Color(0xFFFE0069),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

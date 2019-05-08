@@ -11,6 +11,11 @@ class RoadTrax extends StatelessWidget {
       value: Bloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          splashColor: Color(0xFFF60068),
+          highlightColor: Color(0xFFF60068),
+          accentColor: Color(0xFFF60068),
+        ),
         routes: {
           "/": _buildScreen,
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roadtrax/src/common/music_card.dart';
 import 'package:roadtrax/src/models/music.dart';
 import 'package:roadtrax/src/screens/maps/map_songs_bloc.dart';
+import 'package:roadtrax/src/screens/spotify/spotify_songs_screen.dart';
 
 class MapSongsScreen extends StatefulWidget {
   List<String> _songsUid;
@@ -72,11 +73,21 @@ class _MapSongsScreenState extends State<MapSongsScreen> {
                     height: double.infinity,
                     color: Color(0xFFF60068),
                   ),
-                  child: MusicCard(
-                    index: index + 1,
-                    songName: _songs[index].name,
-                    genre: _songs[index].album,
-                    count: _songs[index].count,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SpotifySongScreen(music: _songs[index]),
+                          ));
+                    },
+                    child: MusicCard(
+                      index: index + 1,
+                      songName: _songs[index].name,
+                      genre: _songs[index].album,
+                      count: _songs[index].count,
+                    ),
                   ),
                 );
               },

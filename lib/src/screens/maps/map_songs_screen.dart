@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:roadtrax/src/common/music_card.dart';
+import 'package:roadtrax/src/models/music.dart';
+import 'package:roadtrax/src/screens/maps/map_songs_bloc.dart';
+import 'package:roadtrax/src/screens/spotify/spotify_songs_screen.dart';
 
-class MapSongsScreen extends StatelessWidget {
-  Map<String, num> _songs;
-  List<String> _songNames;
-  List<String> _songGenres;
-  List<num> _count;
+class MapSongsScreen extends StatefulWidget {
+  List<String> _songsUid;
 
-  MapSongsScreen({@required Map<String, num> songs}) {
-    _songs = songs;
-    _songNames = [];
-    _songGenres = [];
-    _count = _songs.values.toList();
-    final List<String> _songsHeader = _songs.keys.toList();
-    _songsHeader.forEach(
-      (String key) {
-        final List<String> _temp = key.split(';');
+  MapSongsScreen({@required List<String> songs}) : _songsUid = songs;
 
-        _songNames.add(_temp[0]);
-        if (_temp.length < 2) {
-          _songGenres.add(" ");
-        } else {
-          _songGenres.add(_temp[1]);
-        }
-      },
-    );
+  @override
+  _MapSongsScreenState createState() => _MapSongsScreenState();
+}
+
+class _MapSongsScreenState extends State<MapSongsScreen> {
+  MapSongsBloc _mapSongsBloc;
+
+  @override
+  void initState() {
+    _mapSongsBloc = MapSongsBloc(widget._songsUid);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mapSongsBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,24 +45,52 @@ class MapSongsScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-        itemCount: _songs.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Dismissible(
-            background: Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Color(0xFFFE0069),
+      body: StreamBuilder<List<Music>>(
+        stream: _mapSongsBloc.songs$,
+        builder: (BuildContext context, AsyncSnapshot<List<Music>> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
               ),
-            ),
-            key: Key(index.toString()),
-            child: MusicCard(
-              index: index + 1,
-              songName: _songNames[index],
-              genre: _songGenres[index],
+            );
+          }
+          final List<Music> _songs = snapshot.data;
+          return RefreshIndicator(
+            onRefresh: () => _mapSongsBloc.getSongs(),
+            color: Color(0xFFF60068),
+            child: ListView.builder(
+              itemCount: _songs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (_) {
+                    _songs.remove(_songs[index]);
+                    _mapSongsBloc.pushToSongsStream(_songs);
+                  },
+                  background: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Color(0xFFF60068),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SpotifySongScreen(music: _songs[index]),
+                          ));
+                    },
+                    child: MusicCard(
+                      index: index + 1,
+                      songName: _songs[index].name,
+                      genre: _songs[index].album,
+                      count: _songs[index].count,
+                    ),
+                  ),
+                );
+              },
             ),
           );
         },

@@ -4,15 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Road {
   String _name;
   String _id;
-  Map<dynamic, dynamic> _songs;
+  List<String> _songs;
 
   String get name => _name;
   String get id => _id;
-  Map<dynamic, dynamic> get songs => _songs;
+  List<String> get songs => _songs;
 
   Road(
       {@required String name,
-      @required Map<dynamic, dynamic> songs,
+      @required List<String> songs,
       @required String id})
       : _name = name,
         _songs = songs,
@@ -23,7 +23,7 @@ class Road {
     return Road(
       id: doc.documentID,
       name: _roadData["name"],
-      songs: _roadData["songs"],
+      songs: List<String>.from(_roadData["songs"]),
     );
   }
 }

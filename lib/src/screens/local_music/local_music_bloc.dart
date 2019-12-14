@@ -13,87 +13,93 @@ class LocalMusicBloc {
   }
 
   Future<void> pushCountToDatabase(
-      Song song, String userUid, String address) async {
-    final QuerySnapshot _temp = await Firestore.instance
-        .collection("songs")
-        .where("name", isEqualTo: song.title)
-        .getDocuments();
-    final List<Music> _songs = _temp.documents.map(
-      (DocumentSnapshot doc) {
-        return Music.fromDocument(doc);
-      },
-    ).toList();
+      Song song, Profile user, String address) async {
+    user = user.addSongToHistory(song.title);
 
-    if (_songs.length == 0) {
-      final Map<String, dynamic> _newSong = {
-        "album": song.album,
-        "artist": song.artist,
-        "count": 1,
-        "name": song.title,
-        "users": [userUid],
-      };
-      final ref = await Firestore.instance.collection("songs").add(_newSong);
-      await _pushSongToRoads(address, ref.documentID);
-      return;
-    }
-
-    await _pushSongToRoads(address, _songs.first.uid);
-    for (Music currentSong in _songs) {
-      final List<String> users = currentSong.users;
-      if (users.contains(userUid)) {
-        return;
-      }
-    }
-
-    final List<String> _users = List<String>.from(_songs.first.users);
-    _users.add(userUid);
-    final Map<String, dynamic> _data = {
-      "count": _songs.first.count + 1,
-      "users": _users,
-    };
     await Firestore.instance
-        .collection("songs")
-        .document(_songs.first.uid)
-        .setData(_data, merge: true);
+        .collection('users')
+        .document(user.uid)
+        .updateData({"listenHistory": user.listenHistory});
+    // final QuerySnapshot _temp = await Firestore.instance
+    //     .collection("songs")
+    //     .where("name", isEqualTo: song.title)
+    //     .getDocuments();
+    // final List<Music> _songs = _temp.documents.map(
+    //   (DocumentSnapshot doc) {
+    //     return Music.fromDocument(doc);
+    //   },
+    // ).toList();
+
+    // if (_songs.length == 0) {
+    //   final Map<String, dynamic> _newSong = {
+    //     "album": song.album,
+    //     "artist": song.artist,
+    //     "count": 1,
+    //     "name": song.title,
+    //     "users": [user.uid],
+    //   };
+    //   final ref = await Firestore.instance.collection("songs").add(_newSong);
+    //   await _pushSongToRoads(address, ref.documentID);
+    //   return;
+    // }
+
+    // await _pushSongToRoads(address, _songs.first.uid);
+    // for (Music currentSong in _songs) {
+    //   final List<String> users = currentSong.users;
+    //   if (users.contains(user.uid)) {
+    //     return;
+    //   }
   }
 
-  Future<void> _pushSongToRoads(String address, String songUid) async {
-    final QuerySnapshot _temp = await Firestore.instance
-        .collection("roads")
-        .where("name", isEqualTo: address)
-        .getDocuments();
-    final List<Road> _roads = _temp.documents.map(
-      (DocumentSnapshot doc) {
-        return Road.fromDocument(doc);
-      },
-    ).toList();
+  // final List<String> _users = List<String>.from(_songs.first.users);
+  // _users.add(user.uid);
+  // final Map<String, dynamic> _data = {
+  //   "count": _songs.first.count + 1,
+  //   "users": _users,
+  // };
+  //   await Firestore.instance
+  //       .collection("songs")
+  //       .document(_songs.first.uid)
+  //       .setData(_data, merge: true);
+  // }
 
-    if (_roads.length == 0) {
-      final Map<String, dynamic> _newRoad = {
-        "name": address,
-        "songs": [songUid],
-      };
-      await Firestore.instance.collection("roads").add(_newRoad);
-      return;
-    }
+  // Future<void> _pushSongToRoads(String address, String songUid) async {
+  //   final QuerySnapshot _temp = await Firestore.instance
+  //       .collection("roads")
+  //       .where("name", isEqualTo: address)
+  //       .getDocuments();
+  //   final List<Road> _roads = _temp.documents.map(
+  //     (DocumentSnapshot doc) {
+  //       return Road.fromDocument(doc);
+  //     },
+  //   ).toList();
 
-    for (Road currentRoad in _roads) {
-      final List<String> users = currentRoad.songs;
-      if (users.contains(songUid)) {
-        return;
-      }
-    }
+  //   if (_roads.length == 0) {
+  //     final Map<String, dynamic> _newRoad = {
+  //       "name": address,
+  //       "songs": [songUid],
+  //     };
+  //     await Firestore.instance.collection("roads").add(_newRoad);
+  //     return;
+  //   }
 
-    final List<String> _users = List<String>.from(_roads.first.songs);
-    _users.add(songUid);
-    final Map<String, dynamic> _data = {
-      "songs": _users,
-    };
-    await Firestore.instance
-        .collection("roads")
-        .document(_roads.first.id)
-        .setData(_data, merge: true);
-  }
+  //   for (Road currentRoad in _roads) {
+  //     final List<String> users = currentRoad.songs;
+  //     if (users.contains(songUid)) {
+  //       return;
+  //     }
+  //   }
+
+  //   final List<String> _users = List<String>.from(_roads.first.songs);
+  //   _users.add(songUid);
+  //   final Map<String, dynamic> _data = {
+  //     "songs": _users,
+  //   };
+  //   await Firestore.instance
+  //       .collection("roads")
+  //       .document(_roads.first.id)
+  //       .setData(_data, merge: true);
+  // }
 
   void playCurrentSong(String name) {
     final MapEntry<String, String> _state = MapEntry(name, "playing");

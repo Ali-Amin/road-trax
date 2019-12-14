@@ -58,7 +58,8 @@ class Bloc {
           } else {
             _firestore.collection('users').document(firebaseUser.uid).setData({
               'phoneNumber': firebaseUser.phoneNumber,
-              'averageScore': avgUserScore
+              'averageScore': avgUserScore,
+              'listenHistory': {}
             });
             _authState$.sink.add(AuthState.UserDoesNotExist);
           }
@@ -107,6 +108,7 @@ class Bloc {
             {
               'phoneNumber': _phoneNumber$.value,
               'averageScore': avgUserScore,
+              'listenHistory': {},
             },
             merge: true,
           );

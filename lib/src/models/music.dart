@@ -15,14 +15,33 @@ class Music {
   num get count => _count;
   List<String> get users => _users;
 
-  Music._(
-    this._uid,
-    this._name,
-    this._artist,
-    this._album,
-    this._count,
-    this._users,
-  );
+  Music._({
+    String uid,
+    String name,
+    String artist,
+    String album,
+    num count,
+    List<String> users,
+  })  : _uid = uid,
+        _name = name,
+        _artist = artist,
+        _album = album,
+        _count = count,
+        _users = users;
+
+  factory Music.fromJson(Map<dynamic, dynamic> json) {
+    if (json == null) {
+      return null;
+    }
+    return Music._(
+      uid: json["uid"],
+      name: json["name"],
+      artist: json["artist"],
+      album: json['artist'],
+      count: 0,
+      users: [],
+    );
+  }
 
   factory Music.fromDocument(DocumentSnapshot doc) {
     if (doc == null) {
@@ -30,12 +49,12 @@ class Music {
     } else {
       Map<dynamic, dynamic> musicData = doc.data;
       return Music._(
-        doc.documentID,
-        musicData["name"],
-        musicData["artist"],
-        musicData["album"],
-        musicData["count"],
-        List<String>.from(musicData["users"]),
+        uid: doc.documentID,
+        name: musicData["name"],
+        artist: musicData["artist"],
+        album: musicData["album"],
+        count: musicData["count"],
+        users: List<String>.from(musicData["users"]),
       );
     }
   }

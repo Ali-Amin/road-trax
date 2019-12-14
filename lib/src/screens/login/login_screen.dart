@@ -51,16 +51,12 @@ class _LoginScreensState extends State<LoginScreens> {
           );
           break;
         case AuthState.Authenticated:
-          cont2.animateTo(
+          cont2.jumpTo(
             0,
-            duration: Duration(milliseconds: 1000),
-            curve: Curves.decelerate,
           );
           Future.delayed(Duration(milliseconds: 1000), () {
-            cont1.animateTo(
+            cont1.jumpTo(
               3 * MediaQuery.of(context).size.height,
-              duration: Duration(milliseconds: 1500),
-              curve: Curves.decelerate,
             );
           });
           break;
@@ -70,6 +66,7 @@ class _LoginScreensState extends State<LoginScreens> {
     });
     return Scaffold(
       backgroundColor: Color(0xFF121A27),
+      resizeToAvoidBottomPadding: false,
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: cont2,

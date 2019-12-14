@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "136018285803-tegtauo2advec6pb904gt6r4scq454ij.apps.googleusercontent.com",
+          "client_id": "136018285803-0kpmddncdccgg196qefo5jndad9f0mf7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.roadtrax",
-            "certificate_hash": "5850860ee435120da681a7cc0407290486fe00e5"
+            "certificate_hash": "63bd769d1ab12b53cc7692bbf6937f0944d51609"
+          }
+        },
+        {
+          "client_id": "136018285803-vgcqsh8lkc4jih6nm2vtoq6mmkjovgj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roadtrax",
+            "certificate_hash": "c5f30c99544c0ec89eaaf5cb06bb4d9fbe6ab24c"
+          }
+        },
+        {
+          "client_id": "136018285803-kn2tep3j4l7e4641rii9mcm0s71m0mpb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roadtrax",
+            "certificate_hash": "34f5cb489098625c222cc2c8e09ffbc51a87129f"
           }
         },
         {
@@ -31,11 +47,11 @@
           }
         },
         {
-          "client_id": "136018285803-kn2tep3j4l7e4641rii9mcm0s71m0mpb.apps.googleusercontent.com",
+          "client_id": "136018285803-tegtauo2advec6pb904gt6r4scq454ij.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.roadtrax",
-            "certificate_hash": "34f5cb489098625c222cc2c8e09ffbc51a87129f"
+            "certificate_hash": "5850860ee435120da681a7cc0407290486fe00e5"
           }
         },
         {

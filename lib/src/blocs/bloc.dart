@@ -17,6 +17,20 @@ class Bloc {
   BehaviorSubject<String> _userName$;
   BehaviorSubject<Profile> _profile$;
 
+  final Map<String, dynamic> avgUserScore = const {
+    "acousticness": 0,
+    "danceability": 0,
+    "popularity": 0,
+    "valence": 0,
+    "energy": 0,
+    "liveness": 0,
+    "speechiness": 0,
+    "timeStamp": "",
+    "instrumentalness": 0,
+    "loudness": 0,
+    "tempo": 0,
+  };
+
   Bloc() {
     _firebaseAuth = FirebaseAuth.instance;
     _firestore = Firestore.instance;
@@ -44,6 +58,7 @@ class Bloc {
           } else {
             _firestore.collection('users').document(firebaseUser.uid).setData({
               'phoneNumber': firebaseUser.phoneNumber,
+              'averageScore': avgUserScore
             });
             _authState$.sink.add(AuthState.UserDoesNotExist);
           }
@@ -91,6 +106,7 @@ class Bloc {
               .setData(
             {
               'phoneNumber': _phoneNumber$.value,
+              'averageScore': avgUserScore,
             },
             merge: true,
           );

@@ -1,74 +1,42 @@
 {
   "project_info": {
-    "project_number": "136018285803",
-    "firebase_url": "https://road-trax.firebaseio.com",
-    "project_id": "road-trax",
-    "storage_bucket": "road-trax.appspot.com"
+    "project_number": "1089817048255",
+    "firebase_url": "https://road-trax-test.firebaseio.com",
+    "project_id": "road-trax-test",
+    "storage_bucket": "road-trax-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136018285803:android:b3518592dbb253be",
+        "mobilesdk_app_id": "1:1089817048255:android:56b0e9318de58b64b4420a",
         "android_client_info": {
-          "package_name": "com.roadtrax"
+          "package_name": "com.roadtrax.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "136018285803-0kpmddncdccgg196qefo5jndad9f0mf7.apps.googleusercontent.com",
+          "client_id": "1089817048255-75d4si6hbaj9lbnvteldhs4iopls5uf8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.roadtrax",
+            "package_name": "com.roadtrax.test",
             "certificate_hash": "63bd769d1ab12b53cc7692bbf6937f0944d51609"
           }
         },
         {
-          "client_id": "136018285803-vgcqsh8lkc4jih6nm2vtoq6mmkjovgj7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roadtrax",
-            "certificate_hash": "c5f30c99544c0ec89eaaf5cb06bb4d9fbe6ab24c"
-          }
-        },
-        {
-          "client_id": "136018285803-kn2tep3j4l7e4641rii9mcm0s71m0mpb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roadtrax",
-            "certificate_hash": "34f5cb489098625c222cc2c8e09ffbc51a87129f"
-          }
-        },
-        {
-          "client_id": "136018285803-d5vml49t8b8l78hbkia55c4q8bbsnv1h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roadtrax",
-            "certificate_hash": "31a2b09a0f19a108baf7836f5ad01301939a7982"
-          }
-        },
-        {
-          "client_id": "136018285803-tegtauo2advec6pb904gt6r4scq454ij.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roadtrax",
-            "certificate_hash": "5850860ee435120da681a7cc0407290486fe00e5"
-          }
-        },
-        {
-          "client_id": "136018285803-a76cr9qjno1gsn5cbl5ggirqmmjtg39q.apps.googleusercontent.com",
+          "client_id": "1089817048255-3lqbf99qjjaq0ieuo01qk74qli1ee6eh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAdNFm6opr-ClfAVHyCIGKIYYaGXY1Lw6w"
+          "current_key": "AIzaSyC-FkqIFjTNN_8IWvrqOjiN76j3kdUPutE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "136018285803-a76cr9qjno1gsn5cbl5ggirqmmjtg39q.apps.googleusercontent.com",
+              "client_id": "1089817048255-3lqbf99qjjaq0ieuo01qk74qli1ee6eh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

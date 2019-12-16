@@ -57,6 +57,6 @@ class MapsScreenBloc {
   }
 
   void dispose() {
-    _songs$.close();
+    // _songs$.close();
   }
 }

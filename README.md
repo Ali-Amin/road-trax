@@ -23,4 +23,4 @@ A location-based music mobile application established using Flutter and Googleâ€
 
 ## Screenshots
 
-<p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C5.png">
+<p align="center"><img height="480px" src="screenshots/C1.jpg"> <img height="480px" src="screenshots/C2.jpg"> <img height="480px" src="screenshots/C5.jpg">

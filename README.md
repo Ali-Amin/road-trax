@@ -1,16 +1,26 @@
-# roadtrax
+# RoadTrax
 
-A new Flutter project.
+A location-based music mobile application established using Flutter and Google’s Firebase
 
-## Getting Started
+## How to Run
+- Clone the repo.
 
-This project is a starting point for a Flutter application.
+- Run the command `flutter run` using the terminal in the project's directory.
 
-A few resources to get you started if this is your first Flutter project:
+## Current Features
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+[✓] Display tredning songs according to the user's location
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+[✓] Play offline music through your local files
+
+[✓] retrieve songs from Spotify's API
+
+[✓] Music reccomendation (experimental)
+
+## Entity Diagram
+
+<p align="center"><img height="480px" src="screenshots/C4.png">
+
+## Screenshots
+
+<p align="center"><img height="480px" src="screenshots/C1.png"> <img height="480px" src="screenshots/C2.png"> <img height="480px" src="screenshots/C5.png">

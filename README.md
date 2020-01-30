@@ -17,7 +17,7 @@ A location-based music mobile application established using Flutter and Googleâ€
 
 [âœ“] Music reccomendation (experimental)
 
-## Entity Diagram
+## Activity Diagram
 
 <p align="center"><img height="480px" src="screenshots/C4.png">
 

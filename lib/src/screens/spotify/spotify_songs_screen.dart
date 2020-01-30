@@ -86,27 +86,37 @@ class SpotifySongScreen extends StatelessWidget {
                 height: 50,
                 color: Colors.transparent,
               ),
-              Text(
-                _song.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: FittedBox(
+                  child: Text(
+                    _song.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
               Divider(
                 height: 15,
                 color: Colors.transparent,
               ),
-              Text(
-                _artistName + ' - ' + _albumName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: FittedBox(
+                  child: Text(
+                    _artistName + ' - ' + _albumName,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           );

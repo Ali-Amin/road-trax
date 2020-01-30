@@ -5,9 +5,9 @@ import 'package:roadtrax/src/screens/maps/map_songs_bloc.dart';
 import 'package:roadtrax/src/screens/spotify/spotify_songs_screen.dart';
 
 class MapSongsScreen extends StatefulWidget {
-  List<String> _songsUid;
+  final List<Music> _songs;
 
-  MapSongsScreen({@required List<String> songs}) : _songsUid = songs;
+  MapSongsScreen({@required List<Music> songs}) : _songs = songs;
 
   @override
   _MapSongsScreenState createState() => _MapSongsScreenState();
@@ -18,7 +18,7 @@ class _MapSongsScreenState extends State<MapSongsScreen> {
 
   @override
   void initState() {
-    _mapSongsBloc = MapSongsBloc(widget._songsUid);
+    _mapSongsBloc = MapSongsBloc();
     super.initState();
   }
 
@@ -30,6 +30,8 @@ class _MapSongsScreenState extends State<MapSongsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Music> _songs = widget._songs;
+
     return Scaffold(
       backgroundColor: Color(0xFF1A1A1A),
       appBar: AppBar(
@@ -45,56 +47,57 @@ class _MapSongsScreenState extends State<MapSongsScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: StreamBuilder<List<Music>>(
-        stream: _mapSongsBloc.songs$,
-        builder: (BuildContext context, AsyncSnapshot<List<Music>> snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
+      body:
+          // StreamBuilder<List<Music>>(
+          // stream: _mapSongsBloc.songs$,
+          // builder: (BuildContext context, AsyncSnapshot<List<Music>> snapshot) {
+          //   if (!snapshot.hasData) {
+          //     return Center(
+          //       child: CircularProgressIndicator(
+          //         valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF60068)),
+          //       ),
+          //     );
+          //   }
+          // return
+          RefreshIndicator(
+        onRefresh: () {}, // _mapSongsBloc.getSongs(),
+        color: Color(0xFFF60068),
+        child: ListView.builder(
+          itemCount: _songs.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Dismissible(
+              key: UniqueKey(),
+              onDismissed: (_) {
+                _songs.remove(_songs[index]);
+                _mapSongsBloc.pushToSongsStream(_songs);
+              },
+              background: Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Color(0xFFF60068),
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SpotifySongScreen(music: _songs[index]),
+                      ));
+                },
+                child: MusicCard(
+                  index: index + 1,
+                  songName: _songs[index].name,
+                  genre: _songs[index].album,
+                  count: _songs[index].count,
+                ),
               ),
             );
-          }
-          final List<Music> _songs = snapshot.data;
-          return RefreshIndicator(
-            onRefresh: () => _mapSongsBloc.getSongs(),
-            color: Color(0xFFF60068),
-            child: ListView.builder(
-              itemCount: _songs.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Dismissible(
-                  key: UniqueKey(),
-                  onDismissed: (_) {
-                    _songs.remove(_songs[index]);
-                    _mapSongsBloc.pushToSongsStream(_songs);
-                  },
-                  background: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Color(0xFFF60068),
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                SpotifySongScreen(music: _songs[index]),
-                          ));
-                    },
-                    child: MusicCard(
-                      index: index + 1,
-                      songName: _songs[index].name,
-                      genre: _songs[index].album,
-                      count: _songs[index].count,
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+          },
+        ),
       ),
+      // },
+      // ),
     );
   }
 }

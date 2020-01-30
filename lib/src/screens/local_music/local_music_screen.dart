@@ -62,7 +62,7 @@ class _LocalMusicScreenState extends State<LocalMusicScreen> {
         builder:
             (BuildContext context, AsyncSnapshot<Profile> profileSnapshot) {
           if (!profileSnapshot.hasData) return Container();
-          final String _userUid = profileSnapshot.data.uid;
+          final Profile _user = profileSnapshot.data;
           return FutureBuilder<void>(
               future: _functionsInit(),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
@@ -125,7 +125,7 @@ class _LocalMusicScreenState extends State<LocalMusicScreen> {
                                 final _address = await _getCurrentAddress();
                                 _localMusicBloc.pushCountToDatabase(
                                   _songs[index],
-                                  _userUid,
+                                  _user,
                                   _address,
                                 );
                               },
